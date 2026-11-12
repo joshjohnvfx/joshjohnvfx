@@ -111,8 +111,19 @@
     section { scroll-margin-top: 90px; }
     .ticker { display: grid; grid-template-columns: repeat(5,1fr); gap: 12px; padding: 22px; border: 1px solid var(--line); border-radius: 18px; background: #ffffff05; text-align: center; color: #e5d9f7; margin-bottom: 18px; }
     .ticker b { display: block; color: #dca7ff; font-size: 1.15rem; }
-    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin: 16px 0 55px; }
-    .card { border: 1px solid var(--line); border-radius: 19px; padding: 23px; background: linear-gradient(145deg, #171220d9, #0c0a12); }
+    .cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  gap: 16px;
+  margin: 16px 0 40px;
+}
+   .card {
+  border: 1px solid var(--line);
+  border-radius: 19px;
+  padding: 20px;
+  background: linear-gradient(145deg, #171220d9, #0c0a12);
+}
     .card h2 { margin: 0 0 12px; font-size: 1.2rem; }
     .card p { color: var(--muted); margin: 0; }
     .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 18px; }
