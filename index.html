@@ -129,7 +129,9 @@
     .profiles-subtitle { text-align: center; color: var(--muted); margin: 0 0 24px; }
     .profile-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; max-width: 850px; margin: 0 auto; }
     .profile-card { text-align: center; padding: 28px 22px; border: 1px solid var(--line); border-radius: 22px; background: linear-gradient(145deg, #171220e8, #0c0a12); }
-    .profile-photo { width: clamp(150px, 22vw, 220px); aspect-ratio: 1; object-fit: cover; border-radius: 50%; border: 3px solid rgba(235, 220, 255, .9); box-shadow: 0 0 22px rgba(168,85,247,.45), 0 0 48px rgba(255,53,188,.16); }
+    .profile-photo-wrap { position: relative; display: inline-block; width: clamp(150px, 22vw, 220px); aspect-ratio: 1; border-radius: 50%; }
+    .profile-photo { display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 50%; border: 3px solid rgba(235, 220, 255, .9); box-shadow: 0 0 22px rgba(168,85,247,.45), 0 0 48px rgba(255,53,188,.16); -webkit-user-drag: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+    .profile-photo-watermark { position: absolute; right: 10px; bottom: 12px; z-index: 1; padding: 2px 7px; border-radius: 20px; color: #fff; background: rgba(8,6,13,.72); border: 1px solid rgba(255,255,255,.28); font-size: 9px; font-weight: 800; letter-spacing: .7px; pointer-events: none; }
     .profile-card h3 { margin: 16px 0 3px; font-size: 1.35rem; letter-spacing: 2px; }
     .profile-card p { color: var(--muted); margin: 0; }
     @media (max-width: 600px) { .profile-grid { grid-template-columns: 1fr; } }
@@ -177,12 +179,18 @@
     <p class="profiles-subtitle">Two creative identities. One visual vision.</p>
     <div class="profile-grid">
       <article class="profile-card">
-        <img class="profile-photo" src="assets/joshwa_circle.png" alt="Joshwa profile portrait" loading="lazy">
+        <div class="profile-photo-wrap">
+          <img class="profile-photo" src="assets/joshwa_circle.png" alt="Joshwa profile portrait" loading="lazy" draggable="false">
+          <span class="profile-photo-watermark">JOSHJOHNVFX</span>
+        </div>
         <h3>JOSHWA</h3>
         <p>VFX Creator</p>
       </article>
       <article class="profile-card">
-        <img class="profile-photo" src="assets/john_circle.png" alt="John profile portrait" loading="lazy">
+        <div class="profile-photo-wrap">
+          <img class="profile-photo" src="assets/john_circle.png" alt="John profile portrait" loading="lazy" draggable="false">
+          <span class="profile-photo-watermark">JOSHJOHNVFX</span>
+        </div>
         <h3>JOHN</h3>
         <p>Video Editor</p>
       </article>
@@ -227,6 +235,13 @@
 </main>
 
 <footer><div class="wrap"><a class="logo" href="#home">JOSHJOHN<span>VFX</span></a><span>“Good Visuals, Better Stories.”</span><span>© <span id="year"></span> JoshJohnVFX</span></div></footer>
-<script>document.getElementById("year").textContent = new Date().getFullYear();</script>
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+  // Discourage casual saving of profile photos (not foolproof protection).
+  document.querySelectorAll(".profile-photo").forEach((photo) => {
+    photo.addEventListener("contextmenu", (event) => event.preventDefault());
+    photo.addEventListener("dragstart", (event) => event.preventDefault());
+  });
+</script>
 </body>
 </html>
