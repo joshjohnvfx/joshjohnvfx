@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://joshjohnvfx.github.io/joshjohnvfx/sitemap.xml
