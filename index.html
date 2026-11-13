@@ -122,16 +122,25 @@
     .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
     .visual { min-height: 330px; border: 1px solid var(--line); border-radius: 28px; overflow: hidden; position: relative; display: grid; place-items: center; isolation: isolate;
       background: radial-gradient(circle at 50% 40%, #8625a5 0, #31133f 28%, #100b1b 62%, #08060d 100%); }
-    .visual:before, .visual:after { content: ""; position: absolute; width: 230px; height: 230px; border: 1px solid #e65cff65; border-radius: 50%; transform: rotate(-25deg) scaleX(1.5); z-index: -1; }
-    .visual:after { transform: rotate(55deg) scaleX(1.5); border-color: #6e8aff60; }
+    .visual:before, .visual:after { content: ""; position: absolute; width: 230px; height: 230px; border: 1px solid #e65cff65; border-radius: 50%; transform: rotate(-25deg) scaleX(1.5); z-index: -1; animation: orbitSpin 13s linear infinite; }
+    .visual:after { transform: rotate(55deg) scaleX(1.5); border-color: #6e8aff80; animation: orbitSpinReverse 17s linear infinite; }
     .visual { box-shadow: inset 0 0 55px rgba(163,58,255,.08); }
-    .visual .orb { animation: orbPulse 7s ease-in-out infinite alternate; }
-    @keyframes orbPulse {
-      from { transform: scale(.97); box-shadow: 0 0 55px #cf2bff6b; }
-      to { transform: scale(1.03); box-shadow: 0 0 72px #cf2bff8a; }
-    }
+    .visual .orb { animation: orbPulse 5s ease-in-out infinite alternate, orbShimmer 8s linear infinite; position: relative; }
+    @keyframes orbitSpin { from { rotate: 0deg; } to { rotate: 360deg; } }
+    @keyframes orbitSpinReverse { from { rotate: 360deg; } to { rotate: 0deg; } }
+    @keyframes orbPulse { from { transform: scale(.96); box-shadow: 0 0 45px #cf2bff6b; } to { transform: scale(1.05); box-shadow: 0 0 85px #cf2bffb0; } }
+    @keyframes orbShimmer { 0%,100% { filter: hue-rotate(0deg) brightness(1); } 50% { filter: hue-rotate(24deg) brightness(1.18); } }
     .orb { width: 155px; height: 155px; border-radius: 50%; background: radial-gradient(circle at 30% 25%, #ffd8ff, #d92aff 28%, #5222b4 65%, #090711); box-shadow: 0 0 80px #cf2bff9c; }
-    .visual-label { position: absolute; bottom: 22px; left: 22px; right: 22px; text-align: center; color: #e9d6ff; letter-spacing: 4px; font-size: .78rem; }
+    .orb:after { content: ""; position: absolute; inset: -18px; border-radius: 50%; border: 1px solid #ff7bea80; border-left-color: transparent; border-bottom-color: transparent; animation: orbitSpin 4s linear infinite; }
+    .visual-label { position: absolute; bottom: 22px; left: 22px; right: 22px; text-align: center; color: #e9d6ff; letter-spacing: 4px; font-size: .78rem; text-shadow: 0 0 12px #d83cff; }
+    .vfx-spark { position: absolute; width: 4px; height: 4px; border-radius: 50%; background: #ffd8ff; box-shadow: 0 0 9px 3px #d52cff; animation: sparkFloat 5s ease-in-out infinite; }
+    .vfx-spark:nth-of-type(2) { left: 14%; top: 22%; animation-delay: -1s; }
+    .vfx-spark:nth-of-type(3) { right: 16%; top: 28%; animation-delay: -3s; }
+    .vfx-spark:nth-of-type(4) { left: 24%; bottom: 25%; animation-delay: -2s; }
+    .vfx-spark:nth-of-type(5) { right: 25%; bottom: 30%; animation-delay: -4s; }
+    .energy-line { position: absolute; width: 70%; height: 1px; top: 48%; background: linear-gradient(90deg, transparent, #ff8aff, transparent); opacity: 0; transform: rotate(-24deg); animation: energySweep 4.5s ease-in-out infinite; }
+    @keyframes sparkFloat { 0%,100% { transform: translateY(8px) scale(.6); opacity: .35; } 50% { transform: translateY(-22px) scale(1.5); opacity: 1; } }
+    @keyframes energySweep { 0%,15% { opacity: 0; transform: translateX(-45%) rotate(-24deg); } 45% { opacity: .8; } 75%,100% { opacity: 0; transform: translateX(45%) rotate(-24deg); } }
     .socials { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin: 10px 0 28px; }
     .social { display: flex; align-items: center; gap: 12px; min-width: 0; padding: 15px 13px; border: 1px solid var(--line); border-radius: 16px; background: var(--panel); transition: .2s; }
     .social .icon { display: grid; place-items: center; flex: 0 0 42px; width: 42px; height: 42px; border-radius: 13px; font-size: 1.25rem; font-weight: 900; background: linear-gradient(140deg, #fa35bd, #6c35ff); }
@@ -227,7 +236,7 @@
       <div class="actions"><a class="btn primary" href="#projects">▶ View My Work ↗</a><a class="btn" href="#socials">↗ Find My Socials</a></div>
     </div>
     <div class="visual" aria-hidden="true">
-      <div class="orb"></div><div class="visual-label">CREATE • EDIT • INSPIRE • REPEAT</div>
+      <div class="orb"></div><i class="vfx-spark"></i><i class="vfx-spark"></i><i class="vfx-spark"></i><i class="vfx-spark"></i><i class="energy-line"></i><div class="visual-label">CREATE • EDIT • INSPIRE • REPEAT</div>
     </div>
   </section>
 
