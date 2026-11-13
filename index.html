@@ -232,9 +232,64 @@
       58% { left: 115%; opacity: .55; }
       59% { opacity: 0; }
     }
+    /* Shared animated VFX treatment for every card-style component */
+    :is(.card, .profile-card, .social, .ticker, .contact) {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      background-image:
+        radial-gradient(ellipse at 88% 12%, rgba(203, 54, 255, .16), transparent 42%),
+        radial-gradient(ellipse at 8% 100%, rgba(88, 62, 235, .13), transparent 48%),
+        linear-gradient(145deg, rgba(31, 18, 46, .96), rgba(12, 10, 18, .98));
+    }
+    :is(.card, .profile-card, .social, .ticker, .contact)::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      width: 155px;
+      height: 155px;
+      top: -105px;
+      right: -45px;
+      border: 1px solid rgba(218, 112, 255, .35);
+      border-radius: 50%;
+      transform: scaleX(1.5);
+      box-shadow: 0 0 22px rgba(193, 58, 255, .14), inset 0 0 18px rgba(193, 58, 255, .10);
+      animation: cardOrbit 13s linear infinite;
+      pointer-events: none;
+    }
+    :is(.card, .profile-card, .social, .ticker, .contact)::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      top: -70%;
+      bottom: -70%;
+      left: -55%;
+      width: 24%;
+      transform: rotate(24deg);
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.07), rgba(218,92,255,.14), transparent);
+      filter: blur(8px);
+      animation: cardSweep 8s ease-in-out infinite;
+      pointer-events: none;
+    }
+    :is(.card, .profile-card, .social, .ticker, .contact) > * {
+      position: relative;
+      z-index: 1;
+    }
+    @keyframes cardOrbit {
+      from { transform: rotate(0deg) scaleX(1.5); }
+      to { transform: rotate(360deg) scaleX(1.5); }
+    }
+    @keyframes cardSweep {
+      0%, 100% { left: -55%; opacity: 0; }
+      20% { opacity: .8; }
+      60% { left: 130%; opacity: .45; }
+      61% { opacity: 0; }
+    }
     @media (prefers-reduced-motion: reduce) {
       .project::before, .project::after { animation: none; }
       .project { transition: none; }
+      :is(.card, .profile-card, .social, .ticker, .contact)::before,
+      :is(.card, .profile-card, .social, .ticker, .contact)::after { animation: none; }
     }
     .contact { text-align: center; padding: 42px 20px; margin: 10px 0 45px; border: 1px solid var(--line); border-radius: 22px; background: radial-gradient(ellipse at top, #8527a52c, transparent 65%), #ffffff03; }
     .contact h2 { font-size: clamp(1.7rem, 4vw, 2.5rem); margin: 0 0 8px; }
