@@ -1,18 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" type="image/png" href="assets/favicon.png">
   <meta charset="UTF-8">
-  <meta name="author" content="Joshwa and John">
-<meta property="og:site_name" content="JoshJohnVFX">
-<meta property="og:title" content="JoshJohnVFX | Full Creative Media Company">
-<meta property="og:description" content="Founded by Joshwa and John. VFX, Video Editing, AI Creations and Digital Media.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://joshjohnvfx.github.io/joshjohnvfx/">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="theme-color" content="#08060d">
-  <meta name="description" content="Welcome to JoshJohnVFX Official Portfolio. Explore cinematic VFX, professional video editing, visual effects, creative projects and digital content by JoshJohnVFX.">
-  <title>JoshJohnVFX | VFX Creator & Video Editor</title>
+  <meta name="author" content="Joshwa and John">
+  <meta name="description" content="JoshJohnVFX is a creative media brand founded by Joshwa and John, showcasing visual effects, VFX creations, video editing, motion graphics and digital content.">
+  <meta name="robots" content="index, follow, max-image-preview:large">
+  <link rel="canonical" href="https://joshjohnvfx.github.io/joshjohnvfx/">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+
+  <title>JoshJohnVFX | VFX, Video Editing & Creative Media</title>
+
+  <!-- Open Graph: sharing previews -->
+  <meta property="og:site_name" content="JoshJohnVFX">
+  <meta property="og:title" content="JoshJohnVFX | VFX, Video Editing & Creative Media">
+  <meta property="og:description" content="Explore visual effects, VFX creations, video editing and creative digital media by Joshwa and John, founders of JoshJohnVFX.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://joshjohnvfx.github.io/joshjohnvfx/">
+
+  <!-- Twitter/X sharing preview -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="JoshJohnVFX | VFX, Video Editing & Creative Media">
+  <meta name="twitter:description" content="Visual effects, video editing, motion graphics and creative digital media by Joshwa and John.">
+
+  <!-- Structured data for search engines -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "JoshJohnVFX",
+    "url": "https://joshjohnvfx.github.io/joshjohnvfx/",
+    "description": "A creative media brand founded by Joshwa and John, focused on visual effects, video editing, motion graphics and digital content.",
+    "founder": [
+      { "@type": "Person", "name": "Joshwa" },
+      { "@type": "Person", "name": "John" }
+    ],
+    "sameAs": [
+      "https://www.instagram.com/joshjohnvfx",
+      "https://www.youtube.com/@joshjohnvfx",
+      "https://www.threads.com/@joshjohnvfx",
+      "https://linktr.ee/joshjohnvfx",
+      "https://t.me/joshjohnvfx"
+    ]
+  }
+  </script>
   <style>
     :root {
       --bg: #08060d; --panel: rgba(18, 15, 27, .82); --text: #f7f3ff;
@@ -194,7 +226,7 @@
       <p class="intro">Visual Storyteller | VFX Creator | Video Editor<br>Turning imagination into reality through visuals. Follow, connect, and be part of the journey. 💜</p>
       <div class="actions"><a class="btn primary" href="#projects">▶ View My Work ↗</a><a class="btn" href="#socials">↗ Find My Socials</a></div>
     </div>
-    <div class="visual" aria-label="Abstract purple visual effects artwork">
+    <div class="visual" aria-hidden="true">
       <div class="orb"></div><div class="visual-label">CREATE • EDIT • INSPIRE • REPEAT</div>
     </div>
   </section>
@@ -214,7 +246,15 @@
     <div class="profile-grid">
       <article class="profile-card">
         <div class="profile-photo-wrap">
-         <img class="profile-photo" src="assets/joshwa_circle.png" alt="Joshwa, Co-Founder of JoshJohnVFX Creative Media Brand" loading="lazy" draggable="false">
+        <img
+  class="profile-photo"
+  src="assets/joshwa_circle.png"
+  alt="Joshwa - Co-Founder and VFX Creator at JoshJohnVFX"
+  title="Joshwa | JoshJohnVFX VFX Creator"
+  loading="lazy"
+  decoding="async"
+  draggable="false"
+>
           <span class="profile-photo-watermark">JOSHJOHNVFX</span>
         </div>
         <h3>JOSHWA</h3>
@@ -222,7 +262,7 @@
       </article>
       <article class="profile-card">
         <div class="profile-photo-wrap">
-          <img class="profile-photo" src="assets/john_circle.png" alt="John, Co-Founder of JoshJohnVFX Creative Media Brand" loading="lazy" draggable="false">
+          <img class="profile-photo" src="assets/john_circle.png" alt="John, Co-Founder and Video Editor at JoshJohnVFX" title="John | Co-Founder of JoshJohnVFX" loading="lazy" decoding="async" draggable="false">
           <span class="profile-photo-watermark">JOSHJOHNVFX</span>
         </div>
         <h3>JOHN</h3>
@@ -283,24 +323,13 @@
 <footer><div class="wrap"><a class="logo" href="#home">JOSHJOHN<span>VFX</span></a><span>“Good Visuals, Better Stories.”</span><span>© <span id="year"></span> JoshJohnVFX</span></div></footer>
 <script>
   document.getElementById("year").textContent = new Date().getFullYear();
-  // Discourage casual saving of profile photos (not foolproof protection).
+
+  // Discourage casual saving of profile photos; this cannot prevent screenshots or direct file access.
   document.querySelectorAll(".profile-photo").forEach((photo) => {
     photo.addEventListener("contextmenu", (event) => event.preventDefault());
     photo.addEventListener("dragstart", (event) => event.preventDefault());
   });
 </script>
 </body>
-  <script>
-document.addEventListener('contextmenu', function(e) {
-    if (e.target.closest('img')) {
-        e.preventDefault();
-    }
-}, true);
-
-document.addEventListener('dragstart', function(e) {
-    if (e.target.closest('img')) {
-        e.preventDefault();
-    }
-}, true);
-</script>
 </html>
+
