@@ -44,7 +44,9 @@
       "https://t.me/joshjohnvfx"
     ]
   }
-  </script>
+  
+
+</script>
   <style>
     :root {
       --bg: #08060d; --panel: rgba(18, 15, 27, .82); --text: #f7f3ff;
@@ -311,7 +313,45 @@
 
     @media (max-width: 900px) { .hero { grid-template-columns: 1fr; padding-top: 55px; } .visual { min-height: 250px; } .socials { grid-template-columns: repeat(2,1fr); } .cards { grid-template-columns: 1fr 1fr; } .ticker { grid-template-columns: repeat(3,1fr); } }
     @media (max-width: 600px) { .wrap { width: min(100% - 24px, 1180px); } nav { padding: 13px 0; align-items: flex-start; flex-direction: column; } .navlinks { gap: 14px; font-size: .82rem; } nav > .btn { display: none; } h1 { letter-spacing: -2.5px; } .socials, .cards { grid-template-columns: 1fr; } .ticker { grid-template-columns: 1fr 1fr; padding: 15px; } .skills { grid-template-columns: 1fr; } }
-  </style>
+  
+  .project-play {
+    width: 100%;
+    border: 1px solid rgba(207, 105, 255, .35);
+    color: inherit;
+    text-align: left;
+    font: inherit;
+    cursor: pointer;
+  }
+  .project-play:hover, .project-play:focus-visible {
+    border-color: rgba(226, 123, 255, .95);
+    outline: none;
+    box-shadow: 0 0 24px rgba(190, 55, 255, .22);
+  }
+  .video-modal {
+    position: fixed; inset: 0; z-index: 9999; display: none;
+    align-items: center; justify-content: center; padding: 20px;
+    background: rgba(5, 2, 12, .88); backdrop-filter: blur(12px);
+  }
+  .video-modal.open { display: flex; }
+  .video-modal-panel {
+    width: min(900px, 100%); padding: 16px; position: relative;
+    border: 1px solid rgba(211, 104, 255, .65); border-radius: 18px;
+    background: linear-gradient(145deg, #21102f, #0c0914);
+    box-shadow: 0 0 45px rgba(176, 45, 255, .25);
+  }
+  .video-modal-title { margin: 0 48px 12px 0; color: #fff; font-size: 1.1rem; }
+  .video-modal video { display: block; width: 100%; max-height: 72vh; background: #050308; border-radius: 10px; }
+  .video-modal-close {
+    position: absolute; top: 10px; right: 12px; width: 36px; height: 36px;
+    border: 1px solid rgba(255,255,255,.25); border-radius: 50%;
+    color: white; background: rgba(255,255,255,.08); font-size: 22px; cursor: pointer;
+  }
+  .video-modal-note { color: #c9b8d8; font-size: .85rem; margin: 10px 2px 0; }
+  @media (prefers-reduced-motion: reduce) {
+    .project-play { scroll-behavior: auto; }
+  }
+
+</style>
 </head>
 <body>
 <header>
@@ -413,9 +453,9 @@
     <section class="card" id="projects">
       <h2>▣ Featured Projects</h2>
       <p>A space to showcase your best edits and creative work.</p>
-      <a class="project" href="https://www.youtube.com/@joshjohnvfx" target="_blank" rel="noopener noreferrer"><span><strong>Cinematic Edits ↗</strong><small>Video editing & storytelling</small></span></a>
-      <a class="project" href="https://www.youtube.com/@joshjohnvfx" target="_blank" rel="noopener noreferrer"><span><strong>Creative Content ↗</strong><small>Original videos and creative edits</small></span></a>
-      <a class="project" href="https://www.instagram.com/joshjohnvfx" target="_blank" rel="noopener noreferrer"><span><strong>Creative Reels ↗</strong><small>Short-form visual content</small></span></a>
+      <button class="project project-play" type="button" data-video="videos/cinematic-edits.mp4" data-title="Cinematic Edits"><span><strong>Cinematic Edits ▶</strong><small>Video editing & storytelling</small></span></button>
+      <button class="project project-play" type="button" data-video="videos/creative-content.mp4" data-title="Creative Content"><span><strong>Creative Content ▶</strong><small>Original videos and creative edits</small></span></button>
+      <button class="project project-play" type="button" data-video="videos/creative-reels.mp4" data-title="Creative Reels"><span><strong>Creative Reels ▶</strong><small>Short-form visual content</small></span></button>
     </section>
   </div>
 
@@ -426,6 +466,56 @@
     <a class="btn" href="https://t.me/joshjohnvfx" target="_blank" rel="noopener noreferrer">Telegram ↗</a>
   </section>
 </main>
+
+<div class="video-modal" id="projectVideoModal" role="dialog" aria-modal="true" aria-labelledby="projectVideoTitle">
+  <div class="video-modal-panel">
+    <button class="video-modal-close" type="button" aria-label="Close video">×</button>
+    <h3 class="video-modal-title" id="projectVideoTitle">Project Video</h3>
+    <video id="projectVideoPlayer" controls playsinline preload="metadata">
+      <source id="projectVideoSource" src="" type="video/mp4">
+      Your browser does not support HTML video.
+    </video>
+    <p class="video-modal-note" id="projectVideoNote">If the video does not load, check that the MP4 file is uploaded to the videos folder.</p>
+  </div>
+</div>
+
+<script>
+  // Open local MP4 files in a popup player when a Featured Project card is clicked.
+  const projectModal = document.getElementById("projectVideoModal");
+  const projectPlayer = document.getElementById("projectVideoPlayer");
+  const projectSource = document.getElementById("projectVideoSource");
+  const projectTitle = document.getElementById("projectVideoTitle");
+  const projectNote = document.getElementById("projectVideoNote");
+  const closeProjectVideo = () => {
+    projectPlayer.pause();
+    projectPlayer.removeAttribute("src");
+    projectSource.removeAttribute("src");
+    projectPlayer.load();
+    projectModal.classList.remove("open");
+    document.body.style.overflow = "";
+  };
+  document.querySelectorAll(".project-play").forEach((card) => {
+    card.addEventListener("click", () => {
+      projectTitle.textContent = card.dataset.title || "Project Video";
+      projectSource.src = new URL(card.dataset.video, document.baseURI).href;
+      projectNote.textContent = "If the video does not load, upload the matching MP4 file into the website's videos folder.";
+      projectModal.classList.add("open");
+      document.body.style.overflow = "hidden";
+      projectPlayer.load();
+      projectPlayer.play().catch(() => {
+        projectNote.textContent = "Video player is ready. Press Play, and make sure the matching MP4 file is uploaded in the videos folder.";
+      });
+    });
+  });
+  projectModal.querySelector(".video-modal-close").addEventListener("click", closeProjectVideo);
+  projectModal.addEventListener("click", (event) => {
+    if (event.target === projectModal) closeProjectVideo();
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && projectModal.classList.contains("open")) closeProjectVideo();
+  });
+
+</script>
 
 <footer><div class="wrap"><a class="logo" href="#home">JOSHJOHN<span>VFX</span></a><span>“Good Visuals, Better Stories.”</span><span>© <span id="year"></span> JoshJohnVFX</span></div></footer>
 <script>
